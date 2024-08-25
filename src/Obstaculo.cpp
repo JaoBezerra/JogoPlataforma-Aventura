@@ -38,13 +38,14 @@ const bool Obstaculo::getDanoso() const
     return danoso;
 }
 
-/*void Obstaculo::colisaoObstaculo(sf::Vector2f ds, Personagens::Personagem* pPersonagem) {
+/*void Obstaculo::colisaoObstaculo(sf::Vector2f ds, Personagens::Personagem* pPersonagem) 
+{
     sf::Vector2f posOutro = pPersonagem->getPos();
     sf::Vector2f tamOutro = pPersonagem->getTam();
     sf::Vector2f velFinal = pPersonagem->getVelFinal();
     if (ds.x < 0.0f && ds.y < 0.0f) { //houve colisao
         if (ds.x > ds.y) {
-            if (posOutro.x < pos.x) { //colis„o em x
+            if (posOutro.x < pos.x) { //colisÔøΩo em x
                 posOutro.x += ds.x;
                 std::cout << "Colidiu com jogador" << std::endl;
             }
@@ -55,7 +56,7 @@ const bool Obstaculo::getDanoso() const
             velFinal.x = 0.0f;
         }
         else {
-            if (posOutro.y < pos.y) { //colis„o em y
+            if (posOutro.y < pos.y) { //colisÔøΩo em y
                 posOutro.y += ds.y;
                 if (pPersonagem->getId() == IDs::ID::jogador) {
                     Personagens::Jogadores::Jogador* pJogador = static_cast<Personagens::Jogadores::Jogador*>(pPersonagem);
@@ -71,10 +72,28 @@ const bool Obstaculo::getDanoso() const
     pPersonagem->setPos(posOutro);
     pPersonagem->setVelFinal(velFinal);
 }
+*/
 
-const std::string Obstaculo::salvar() {
-    std::string linha = salvarEntidade();
-    return linha;
+/*
+
+
+//c√≥digo inspirado no jogo do Murilo; https://github.com/Lillo-M/TheWizard
+void Obstaculo::Save(std::ofstream& savefile)
+{
+    savefile << this->getID() << std::endl;
+	savefile << Position.x << std::endl;
+	savefile << Position.y << std::endl; 
+    savefile << Velocity.x << std::endl;
+	savefile << Velocity.y << std::endl;
 }
 
-}*/
+void Obstaculo::Load(std::ifstream& savefile)
+{
+    int iread;
+    savefile >> iread;
+	savefile >> Position.x;
+	savefile >> Position.y; 
+    savefile >> Velocity.x;
+	savefile >> Velocity.y;
+}
+*/

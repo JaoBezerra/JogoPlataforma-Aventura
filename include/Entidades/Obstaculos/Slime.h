@@ -20,8 +20,8 @@ namespace Jogo
                 ~Slime();
                 void atualizar();
                 void danar(int jogador);
-                //void salvar(int save);
-                //void limparArquivo(int save);
+                //void Save(std::ofstream& savefile);
+            	//void Load(std::ifstream& savefile);
             };
         }
     }

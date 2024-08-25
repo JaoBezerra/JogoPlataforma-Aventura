@@ -17,6 +17,7 @@ namespace Jogo
 			{
 			protected:
 				bool danoso;
+				bool colidir;
 				//sf::Texture textura;
 			public:
 				Obstaculo(const Vector2f pos, const Vector2f tam, const IDs::ID id);
@@ -24,7 +25,9 @@ namespace Jogo
 				virtual void atualizar(); //desenhar
 				const bool getDanoso() const;
 				virtual void colisao(Entidade* outra, sf::Vector2f ds);
-				virtual void colisaoObstaculo(Vector2f ds, Personagens::Personagem* pPersonagem) = 0;
+				virtual void colisaoObstaculo(Vector2f ds, Personagens::Personagem* pPersonagem) = 0; 
+				//void Save(std::ofstream& savefile);
+            	//void Load(std::ifstream& savefile);
 			};
 		}
 	}
