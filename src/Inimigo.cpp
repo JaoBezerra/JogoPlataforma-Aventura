@@ -42,17 +42,6 @@ void Inimigo::desenhar()
 	pGG->desenhaElementos(corpo);
 }
 
-void Inimigo::colisao(Entidade* outra, sf::Vector2f ds)
-{
-	switch (outra->getId())
-	{
-		case(IDs::ID::jogador):
-		{
-			std::cout << "Colidiu com o jogador" << std::endl;
-		}break;
-	}
-}
-
 void Inimigo::atualizaMovimentoAleatorio()
 {
 	if (tempoMover > TEMPO_MOVER_ALEATORIO)
@@ -78,6 +67,9 @@ void Inimigo::moveInimigo()
 
 void Inimigo::atualizar()
 {
+	if(getVida() <= 0.f){
+		poderemover = true;
+	}
 	moveInimigo();
 
 	atualizarPosicao();

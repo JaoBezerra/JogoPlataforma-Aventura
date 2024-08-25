@@ -4,7 +4,7 @@ using namespace Jogo;
 using namespace Gerenciadores;
 using namespace sf;
 
-GerenciadorColisao::GerenciadorColisao(Listas::ListaEntidade* lP, Listas::ListaEntidade* lO) :listaPersonagem(lP), listaObstaculos(lO)
+GerenciadorColisao::GerenciadorColisao(Listas::ListaEntidade* lJ, Listas::ListaEntidade* lI, Listas::ListaEntidade* lO) :listaJogadores(lJ), listaInimigos(lI), listaObstaculos(lO)
 {
 	
 }
@@ -13,8 +13,10 @@ GerenciadorColisao::~GerenciadorColisao()
 {
 	if (listaObstaculos)
 		delete listaObstaculos;
-	if (listaPersonagem)
-		delete listaPersonagem;
+	if (listaInimigos)
+		delete listaInimigos;
+	if(listaJogadores)
+		delete listaJogadores;
 }
 
 const Vector2f GerenciadorColisao::calculaColisao(Entidades::Entidade* ent1, Entidades::Entidade* ent2)
@@ -37,40 +39,49 @@ const Vector2f GerenciadorColisao::calculaColisao(Entidades::Entidade* ent1, Ent
 void GerenciadorColisao::executar()
 {
 	
-	//Verifica colisao entre personagem e personagem
+	//Verifica colisao entre jogador e inimigo
 
-	for (int i = 0; i < listaPersonagem->getTam(); i++)
+	for (int i = 0; i < listaJogadores->getTam(); i++)
 	{
-		Entidades::Entidade* ent1 = listaPersonagem->operator[](i);
-		for (int j = i + 1; j < listaPersonagem->getTam(); j++)
+		Entidades::Entidade* ent1 = listaJogadores->operator[](i);
+		for (int j = 0; j < listaInimigos->getTam(); j++)
 		{
-			Entidades::Entidade* ent2 = listaPersonagem->operator[](j);
+			Entidades::Entidade* ent2 = listaInimigos->operator[](j);
 			Vector2f ds = calculaColisao(ent1, ent2);
 			if (ds.x < 0.0f && ds.y < 0.0f)
-				ent1->colisao(ent2);
+				ent2->colisao(ent1);
 		}
 	}
-	//std::cout << " " << listaPersonagem->getTam() << std::endl;
-	//Verifica colisao entre personagem e obstaculo
 
-	for (int i = 0; i < listaPersonagem->getTam(); i++)
+	//Verifica colisao entre inimigo e obstaculo
+
+	for(int i = 0; i < listaInimigos->getTam(); i++)
 	{
-		Entidades::Entidade* ent1 = listaPersonagem->operator[](i);
+		Entidades::Entidade* ent1 = listaInimigos->operator[](i);
 		for (int j = 0; j < listaObstaculos->getTam(); j++)
 		{
 			Entidades::Entidade* ent2 = listaObstaculos->operator[](j);
-			//std::cout << "Id ent1:  " << (int)ent1->getId() << std::endl;
-			//std::cout << "Id ent2:  " << (int)ent2->getId() << std::endl;
-
 			Vector2f ds = calculaColisao(ent1, ent2);
 			if (ds.x < 0.0f && ds.y < 0.0f) {
 
 				ent2->colisao(ent1, ds);
 			}
-			/*else {
-				
-			}*/
 		}
-		//std::cout << std::endl;
+	}
+
+	//Verifica colisao entre Jogador e obstaculo
+
+	for (int i = 0; i < listaJogadores->getTam(); i++)
+	{
+		Entidades::Entidade* ent1 = listaJogadores->operator[](i);
+		for (int j = 0; j < listaObstaculos->getTam(); j++)
+		{
+			Entidades::Entidade* ent2 = listaObstaculos->operator[](j);
+			Vector2f ds = calculaColisao(ent1, ent2);
+			if (ds.x < 0.0f && ds.y < 0.0f) {
+
+				ent2->colisao(ent1, ds);
+			}
+		}
 	}
 }

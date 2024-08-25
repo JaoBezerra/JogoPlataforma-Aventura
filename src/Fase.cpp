@@ -11,7 +11,7 @@ using namespace Jogadores;
 using namespace Obstaculos;
 
 
-Fase::Fase(const IDs::ID id) :Ente(id), listaObstaculos(), listaPersonagem(), colisor(&listaPersonagem, &listaObstaculos), pEventos(pEventos->getGerenciadorEventos()), fundo(Vector2f(800.0, 600.f),pGG->carregarTextura("./Assets/Fundo1.jpg"))
+Fase::Fase(const IDs::ID id) :Ente(id), listaObstaculos(), listaInimigos(), listaJogadores(), colisor(&listaJogadores, &listaInimigos, &listaObstaculos), pEventos(pEventos->getGerenciadorEventos()), fundo(Vector2f(800.0, 600.f),pGG->carregarTextura("./Assets/Fundo1.jpg"))
 {
 	if (!pEventos) {
 		std::cout << "Nao foi possivel criar um gerenciador de eventos" << std::endl;
@@ -24,8 +24,9 @@ Fase::~Fase()
 	if (pEventos) 
 		pEventos = nullptr;
 	
-	listaPersonagem.limparLista();
+	listaInimigos.limparLista();
 	listaObstaculos.limparLista();
+	listaJogadores.limparLista();
 }
 
 void Fase::criarCogumelo(const sf::Vector2f pos)
@@ -36,7 +37,7 @@ void Fase::criarCogumelo(const sf::Vector2f pos)
 		std::cout << "Nao foi possivel criar o inimigo" << std::endl;
 	}
 
-	listaPersonagem.addEntidade(static_cast<Entidades::Entidade*>(cogumelo));
+	listaInimigos.addEntidade(static_cast<Entidades::Entidade*>(cogumelo));
 
 }
 
@@ -48,7 +49,7 @@ void Fase::criarPerseguidor(const sf::Vector2f pos)
 		std::cout << "Nao foi possivel criar o inimigo" << std::endl;
 	}
 
-	listaPersonagem.addEntidade(static_cast<Entidades::Entidade*>(inimigo2));
+	listaInimigos.addEntidade(static_cast<Entidades::Entidade*>(inimigo2));
 
 }
 
@@ -72,7 +73,7 @@ void Fase::criarJogador1(const sf::Vector2f pos)
 		std::cout << "Nao foi possivel criar o jogador 1" << std::endl;
 	}
 
-	listaPersonagem.addEntidade(static_cast<Entidades::Entidade*>(jogador1));
+	listaJogadores.addEntidade(static_cast<Entidades::Entidade*>(jogador1));
 
 	pEventos->setJogador(jogador1);
 	Perseguidor::setJogador(jogador1);
@@ -86,7 +87,7 @@ void Fase::criarJogador2(const sf::Vector2f pos)
 		std::cout << "Nao foi possivel criar o jogador 2" << std::endl;
 	}
 
-	listaPersonagem.addEntidade(static_cast<Entidades::Entidade*>(jogador2));
+	listaJogadores.addEntidade(static_cast<Entidades::Entidade*>(jogador2));
 
 	pEventos->setJogador2(jogador2);
 	Perseguidor::setJogador2(jogador2);
@@ -131,7 +132,8 @@ void Fase::criarEntidade(char letra, const sf::Vector2i pos)
 
 void Fase::desenhar()
 {
-	listaPersonagem.executar();
+	listaJogadores.executar();
+	listaInimigos.executar();
 	listaObstaculos.executar();
 }
 

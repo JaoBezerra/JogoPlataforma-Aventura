@@ -15,8 +15,9 @@ namespace Jogo
 		class Fase : public Ente
 		{
 		protected:
-			Listas::ListaEntidade listaPersonagem;
+			Listas::ListaEntidade listaInimigos;
 			Listas::ListaEntidade listaObstaculos;
+			Listas::ListaEntidade listaJogadores;
 			Gerenciadores::GerenciadorColisao colisor;
 			Gerenciadores::GerenciadorEventos* pEventos;
 			Fundos::Fundo fundo;

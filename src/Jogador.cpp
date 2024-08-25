@@ -34,6 +34,9 @@ const RectangleShape Jogador::getCorpo()
 
 void Jogador::atualizar()
 {
+	if(vida <= 0.f){
+		poderemover = true;
+	}
 	atualizarPosicao();
 	//atualizarAnimacao();
 }
@@ -50,28 +53,6 @@ void Jogador::atualizarAnimacao()
 	}
 	else if (!andando) {
 		animacao.atualizar(paraEsquerda, "PARADO");
-	}
-}
-
-void Jogador::colisao(Entidade* outra, sf::Vector2f ds)
-{
-	switch (outra->getId())
-	{
-		case(IDs::ID::cogumelo) :
-		{
-			std::cout << "Colidiu com o cogumelo" << std::endl;
-		}
-		break;
-		case(IDs::ID::perseguidor):
-		{
-			std::cout << "Colidiu com o perseguidor" << std::endl;
-		}
-		break;
-		case(IDs::ID::obstaculo):
-		{
-			std::cout << "Colidiu com obstaculo" << std::endl;
-		}
-		break;
 	}
 }
 
@@ -95,4 +76,20 @@ void Jogador::pular()
 const bool Jogador::getAndando() const
 {
 	return andando;
+}
+
+const int Jogador::getNum()const
+{
+	return num_jogador;
+}
+
+void Jogador::tomarDano(float dano)
+{
+	vida -= dano;
+	std::cout << "Jogador: " << getNum() << " tomou dano" << std::endl;
+}
+
+void Jogador::colisao(Entidade* outra, sf::Vector2f ds)
+{
+	
 }

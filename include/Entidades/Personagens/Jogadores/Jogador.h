@@ -31,10 +31,12 @@ namespace Jogo
 					void atualizar();
 					void atualizarAnimacao();
 					void desenhar();
-					void colisao(Entidade* outra, sf::Vector2f ds = sf::Vector2f(0.f, 0.f));
 					void podePular();
 					void pular();
+					const int getNum() const;
 					const bool getAndando() const;
+					void  tomarDano(float dano);
+					void colisao(Entidade* outra, sf::Vector2f ds);
 				};
 			}
 		}

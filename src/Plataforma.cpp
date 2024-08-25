@@ -33,18 +33,18 @@ void Plataforma::colisaoObstaculo(Vector2f ds, Personagens::Personagem* pPersona
     sf::Vector2f velFinal = pPersonagem->getVelFinal();
     if (ds.x < 0.0f && ds.y < 0.0f) { //houve colisao
         if (ds.x > ds.y) {
-            if (posOutro.x < pos.x) { //colisão em x
+            if (posOutro.x < pos.x) { //colisï¿½o em x
                 posOutro.x += ds.x;
-                std::cout << "Colidiu com jogador" << std::endl;
+                //std::cout << "Colidiu com jogador" << std::endl;
             }
             else {
                 posOutro.x -= ds.x;
-                std::cout << "Colidiu com jogador" << std::endl;
+                //std::cout << "Colidiu com jogador" << std::endl;
             }
             velFinal.x = 0.0f;
         }
         else {
-            if (posOutro.y < pos.y) { //colisão em y
+            if (posOutro.y < pos.y) { //colisï¿½o em y
                 posOutro.y += ds.y;
                 if (pPersonagem->getId() == IDs::ID::jogador) {
                     Personagens::Jogadores::Jogador* pJogador = static_cast<Personagens::Jogadores::Jogador*>(pPersonagem);

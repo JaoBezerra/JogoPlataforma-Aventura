@@ -28,10 +28,10 @@ namespace Jogo
 
 				public:
 					Inimigo(const Vector2f pos, const Vector2f tam, const IDs::ID id);
-					~Inimigo();
+					virtual ~Inimigo();
 					void atualizar();
 					void desenhar();
-					void colisao(Entidade* outra, sf::Vector2f ds = sf::Vector2f(0.f, 0.f));
+					virtual void colisao(Entidade* outra, sf::Vector2f ds) = 0;
 				};
 			}
 		}
